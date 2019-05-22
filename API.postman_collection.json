@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "df2e396d-2552-4286-aefb-10fa967a17a9",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Ownership",
+					"item": [
+						{
+							"name": "Get methods",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{api_url}}/ownership-methods/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"ownership-methods",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"method\": \"email\",\n\t\"address\": \"{{ownership_request_email}}\",\n\t\"userInfo\": {}\n}"
+								},
+								"url": {
+									"raw": "{{api_url}}/request-ownership/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"request-ownership",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Phone request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"method\": \"phone\",\n\t\"address\": \"{{ownership_request_phone}}\",\n\t\"userInfo\": {}\n}"
+								},
+								"url": {
+									"raw": "{{api_url}}/request-ownership/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"request-ownership",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Confirm phone request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"token\": \"{{confirm_request_token}}\"\n}"
+								},
+								"url": {
+									"raw": "{{api_url}}/confirm-ownership/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"confirm-ownership",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Business",
+					"item": [
+						{
+							"name": "Reviews",
+							"item": [
+								{
+									"name": "Add Review",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"business_id\": \"{{business_id}}\",\n\t\"code\": \"5\",\n\t\"comment\": \"Fake comment\",\n\t\"photo\": \"data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=\"\n}"
+										},
+										"url": {
+											"raw": "{{api_url}}/business-reviews",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"business-reviews"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{auth_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "00b4a3fe-d105-4c1d-aa14-544dc4ac65e0",
+						"type": "text/javascript",
+						"exec": [
+							"const loginRequest = {",
+							"    url: pm.variables.get('api_url') + '/login',",
+							"    method: 'POST',",
+							"    header: 'Content-Type:application/json',",
+							"    body: {",
+							"        mode: 'application/json',",
+							"        raw: JSON.stringify({",
+							"            email: pm.variables.get('username'),",
+							"            password: pm.variables.get('password'),",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"var authToken = pm.environment.get('auth_token');",
+							"",
+							"console.log('Current Auth Token: ', authToken);",
+							"",
+							"if (!authToken) {",
+							"    console.log('Request a token.', loginRequest);",
+							"",
+							"    pm.sendRequest(loginRequest, function (err, res) {",
+							"        console.log(err ? err : res.json());",
+							"        if (err === null) {",
+							"            var responseJson = res.json();",
+							"            ",
+							"            console.log('Saving the token.', responseJson.token);",
+							"            ",
+							"            pm.environment.set('auth_token', responseJson.token);",
+							"        }",
+							"    });",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "db9d3ddb-620f-4168-86b4-fd749a158187",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "postman@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api_url}}/login",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3ce5a3bb-926d-40ef-becf-e4f63e910a50",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "bff5023e-b043-4c0e-8334-8fbe59f431a2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "be6d8f8e-cc3b-44b2-b902-7aba0ad08828",
+			"key": "api_url",
+			"value": "http://app.local/api/v1",
+			"type": "string"
+		},
+		{
+			"id": "a9702848-06de-481d-b37f-60ed7681dcf8",
+			"key": "username",
+			"value": "postman@test.com",
+			"type": "string"
+		},
+		{
+			"id": "d65081b9-9662-4786-92b8-cd1eba11108c",
+			"key": "password",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"id": "a802c01d-eea6-46df-a689-8b42bf5a3c6d",
+			"key": "business_id",
+			"value": "342",
+			"type": "string"
+		},
+		{
+			"id": "2aa0c05e-8c3c-4125-b7fa-147a427dacaf",
+			"key": "ownership_request_email",
+			"value": "ownership-req@spambog.com",
+			"type": "string"
+		},
+		{
+			"id": "027a5633-5ad2-4bfe-bebc-c1d464db8afc",
+			"key": "ownership_request_phone",
+			"value": "+1 7837 000111",
+			"type": "string"
+		},
+		{
+			"id": "05d1f34b-c7cb-44ae-b84b-b4bbfcc7d0a2",
+			"key": "confirm_request_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

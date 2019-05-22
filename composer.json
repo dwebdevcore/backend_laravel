@@ -1,0 +1,113 @@
+{
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": "^7.1.3",
+        "ext-json": "*",
+        "acme/ImageBox": "*",
+        "acme/MapBox": "*",
+        "acme/ThumbField": "*",
+        "acme/map-field": "*",
+        "aws/aws-sdk-php": "^3.69",
+        "babenkoivan/scout-elasticsearch-driver": "^3.8",
+        "darkaonline/l5-swagger": "5.7.*",
+        "doctrine/dbal": "^2.8",
+        "epartment/nova-dependency-container": "dev-master",
+        "fideloper/proxy": "^4.0",
+        "google/cloud-vision": "^0.17.2",
+        "laravel-notification-channels/twilio": "^2.0",
+        "laravel/framework": "5.7.*",
+        "laravel/nova": "*",
+        "laravel/passport": "^7.0",
+        "laravel/tinker": "^1.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "twilio/sdk": "^5.23",
+        "zircote/swagger-php": "^3.0"
+    },
+    "require-dev": {
+        "beyondcode/laravel-dump-server": "^1.0",
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^2.0",
+        "phpunit/phpunit": "^7"
+    },
+    "autoload": {
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Map"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/MapBox"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/MapBox"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Map"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/MapField"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ImageBox"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ThumbField"
+        }
+    ]
+}

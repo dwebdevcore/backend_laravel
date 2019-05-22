@@ -1,0 +1,81 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APP API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1/image/face-detection": {
+            "post": {
+                "summary": "Detect faces from an image.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\FaceDetectionController::index",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Image encoded in base64.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Image faces annotations."
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "operationId": "App\\Http\\Controllers\\API\\v1\\LoginController::store",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User email",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "email"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successfully"
+                    },
+                    "422": {
+                        "description": "Password missmatch"
+                    }
+                }
+            }
+        },
+        "/api/v1/ownership-methods/{businessId}": {
+            "get": {
+                "summary": "Get business ownership methods.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\Ownership\\MethodsController::index",
+                "parameters": [
+                    {
+                        "name": "businessId",
+                        "in": "query",
+                        "description": "Business ID.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ownership methods."
+                    }
+                }
+            }
+        }
+    }
+}

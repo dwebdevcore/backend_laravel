@@ -1,0 +1,1 @@
+UPDATE `business_attributes` SET `key` = LOWER(`key`);

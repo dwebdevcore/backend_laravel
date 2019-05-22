@@ -1,0 +1,94 @@
+#image-box {
+  height: 500px;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.image {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  height: 200px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #ebebeb;
+  margin: 5px;
+  z-index: 1;
+}
+
+.set-cover {
+  display: block;
+  width: 150px;
+  height: 20px;
+  background-color: #1d68a7;
+  position: relative;
+  margin: 5px 80px;
+  color: white;
+  border-radius: 4px;
+}
+
+.image-b {
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  height: 230px;
+}
+
+.coverClass {
+  border: 5px solid #1d68a7;
+}
+
+.blueimp-gallery > .description {
+  position: absolute !important;
+  background-color: none;
+  color: #1d2124 !important;
+  bottom: 15px !important;
+  left: 0 !important;
+  right: 0 !important;
+  min-width: 300px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  top: unset !important;
+}
+
+.label {
+  border-radius: 23px;
+  border: 1px solid transparent;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.green {
+  color: white;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.orange {
+  color: white;
+  background-color: #ec971f;
+  border-color: #d58512;
+}
+
+.gray {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.red {
+  color: white;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+

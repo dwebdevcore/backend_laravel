@@ -1,0 +1,91 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: app
+    volumes:
+      - .:/var/www/app
+      - ./build-deploy/nginx/ssl:/etc/nginx/ssl
+      - ./build-deploy/nginx/domains.d:/etc/nginx/domains.d
+      - ./aws-credentials:/root/.aws/credentials
+    command: build-deploy/run.sh
+    depends_on:
+      - mysql
+      - elasticsearch
+      - localstack
+    links:
+      - mysql
+      - elasticsearch
+      - localstack
+    env_file: .env-docker
+    networks:
+      app:
+        aliases:
+          - api.app.local
+    ports:
+      - 80:80
+      - 443:443
+      - 5601:5601
+  mysql:
+    image: percona:5.7
+    environment:
+      - MYSQL_DATABASE=app
+      - MYSQL_HOST=127.0.0.1
+      - MYSQL_PORT=3306
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./database/sample.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./database/lowercaseAttributeKeys.sql:/docker-entrypoint-initdb.d/modify.sql
+    networks:
+      app:
+        aliases:
+          - 127.0.0.1
+    ports:
+      - 3306:3306
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+    networks:
+      app:
+        aliases:
+        - elasticsearch.app.local
+    volumes:
+      - ./storage/synonym.txt:/usr/share/elasticsearch/config/analysis/synonym.txt
+  localstack:
+    image: localstack/localstack:0.8.7
+    environment:
+      - SERVICES=s3:4572,sqs:4576,ses:4579
+      - DEFAULT_REGION=us-east-1
+      - HOSTNAME_EXTERNAL=localstack.app.local
+    networks:
+      app:
+        aliases:
+        - localstack.app.local
+        - images.localstack.app.local
+    ports:
+      - 4572:4572
+      - 4576:4576
+      - 4579:4579
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    environment:
+      SERVER_NAME: kibana.app.local
+      ELASTICSEARCH_URL: http://elasticsearch.app.local:9200
+    networks:
+      app:
+        aliases:
+        - kibana.app.local
+networks:
+  app:

@@ -1,0 +1,1 @@
+<a href="{{config('nova.path')}}/resources/businesses/{{$id}}">{{$name}}</a>

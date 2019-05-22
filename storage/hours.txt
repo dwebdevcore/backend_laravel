@@ -1,0 +1,7 @@
+{"business_id":"1","business_hours":{"sunday":[],"monday":[{"open":400,"close":500},{"open":600,"close":700},{"open":800,"close":900}],"tuesday":[{"open":300,"close":400}],"wednesday":[{"open":500,"close":600}],"thursday":[{"open":700,"close":800}],"friday":[{"open":900,"close":1000}],"saturday":[]}}
+
+{"business_id":"2535334534","business_hours":{"sunday":[],"monday":[{"open":540,"close":1020}],"tuesday":[{"open":540,"close":1020}],"wednesday":[{"open":540,"close":1020}],"thursday":[{"open":540,"close":1020}],"friday":[{"open":540,"close":1020}],"saturday":[]}}
+
+{"business_id":"7","business_hours":{"sunday":[{"open":400,"close":500},{"open":600,"close":700},{"open":800,"close":900}],"monday":[{"open":540,"close":1020}],"tuesday":[{"open":540,"close":1020}],"wednesday":[{"open":540,"close":1020}],"thursday":[{"open":540,"close":1020}],"friday":[{"open":540,"close":1020}],"saturday":[]}}
+{"business_id":"412491","business_hours":{"sunday":[{"open":400,"close":500},{"open":600,"close":700},{"open":800,"close":900}],"monday":[{"open":540,"close":1020}],"tuesday":[{"open":540,"close":1020}],"wednesday":[{"open":540,"close":1020}],"thursday":[{"open":540,"close":1020}],"friday":[{"open":540,"close":1020}],"saturday":[]}}
+{"business_id":"8","business_hours":{"sunday":[{"open":400,"close":500},{"open":600,"close":700},{"open":800,"close":900}],"monday":[{"open":540,"close":1020}],"tuesday":[{"open":540,"close":1020}],"wednesday":[{"open":540,"close":1020}],"thursday":[{"open":540,"close":1020}],"friday":[{"open":540,"close":1020}],"saturday":[]}}
